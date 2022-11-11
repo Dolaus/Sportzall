@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sportzall.Models;
 
@@ -11,9 +12,10 @@ using Sportzall.Models;
 namespace Sportzall.Migrations
 {
     [DbContext(typeof(SportzalDBContext))]
-    partial class SportzalDBContextModelSnapshot : ModelSnapshot
+    [Migration("20221111172930_AddUsersAbonement")]
+    partial class AddUsersAbonement
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,7 +43,12 @@ namespace Sportzall.Migrations
                     b.Property<int>("Price")
                         .HasColumnType("int");
 
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Abonement");
                 });
@@ -57,9 +64,6 @@ namespace Sportzall.Migrations
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsPay")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -158,6 +162,15 @@ namespace Sportzall.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Sportzall.Models.Abonement", b =>
+                {
+                    b.HasOne("Sportzall.Models.User", "User")
+                        .WithMany("Abonements")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Sportzall.Models.AbonementsUser", b =>
                 {
                     b.HasOne("Sportzall.Models.User", "User")
@@ -183,6 +196,8 @@ namespace Sportzall.Migrations
 
             modelBuilder.Entity("Sportzall.Models.User", b =>
                 {
+                    b.Navigation("Abonements");
+
                     b.Navigation("AbonementsUser");
                 });
 #pragma warning restore 612, 618

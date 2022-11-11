@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Sportzall.Models;
+using Sportzall.Models.ViewModel;
 
 namespace Sportzall.Controllers
 {
@@ -43,24 +45,34 @@ namespace Sportzall.Controllers
         [HttpGet]
         public IActionResult Edit(int? id)
         {
+            EditUserViewModel editUserViewModel = new EditUserViewModel()
+            {
+                User=new User(),
+                RoleSelectList=_dbContext.Role.Select(u=> new SelectListItem
+                {
+                    Text =u.Name,
+                    Value=u.Id.ToString()
+                })
+            };
             if (id==null||id==0)
             {
-                return NotFound();
+                return View(editUserViewModel);
             }
-            var user = _dbContext.User.Find(id);
-            if (user == null)
+
+            editUserViewModel.User = _dbContext.User.Find(id);
+            if (editUserViewModel == null)
             {
                 return NotFound();
             }
-            return View(user);
+            return View(editUserViewModel);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(User user)
         {
+
             if (ModelState.IsValid)
             {
-                user.Role = _dbContext.Role.FirstOrDefault(r => r.Name == "user");
                 _dbContext.User.Update(user);
                 _dbContext.SaveChanges();
                 return RedirectToAction("Index");
@@ -96,6 +108,17 @@ namespace Sportzall.Controllers
                 return RedirectToAction("Index");
             }
             return NotFound();
+        }
+        [HttpGet]
+        public IActionResult AboutUser()
+        {
+            var user = _dbContext.User.Include(u=>u.AbonementsUser).FirstOrDefault(u => u.Email == User.Identity.Name);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return View(user);
         }
     }
 }

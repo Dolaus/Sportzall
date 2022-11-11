@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sportzall.Models;
 
@@ -11,9 +12,10 @@ using Sportzall.Models;
 namespace Sportzall.Migrations
 {
     [DbContext(typeof(SportzalDBContext))]
-    partial class SportzalDBContextModelSnapshot : ModelSnapshot
+    [Migration("20221111151020_AddModelAbonements")]
+    partial class AddModelAbonements
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,33 +43,6 @@ namespace Sportzall.Migrations
                     b.Property<int>("Price")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("Abonement");
-                });
-
-            modelBuilder.Entity("Sportzall.Models.AbonementsUser", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsPay")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Price")
-                        .HasColumnType("int");
-
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
 
@@ -75,7 +50,7 @@ namespace Sportzall.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AbonementsUser");
+                    b.ToTable("Abonement");
                 });
 
             modelBuilder.Entity("Sportzall.Models.Role", b =>
@@ -158,10 +133,10 @@ namespace Sportzall.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Sportzall.Models.AbonementsUser", b =>
+            modelBuilder.Entity("Sportzall.Models.Abonement", b =>
                 {
                     b.HasOne("Sportzall.Models.User", "User")
-                        .WithMany("AbonementsUser")
+                        .WithMany("Abonements")
                         .HasForeignKey("UserId");
 
                     b.Navigation("User");
@@ -183,7 +158,7 @@ namespace Sportzall.Migrations
 
             modelBuilder.Entity("Sportzall.Models.User", b =>
                 {
-                    b.Navigation("AbonementsUser");
+                    b.Navigation("Abonements");
                 });
 #pragma warning restore 612, 618
         }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sportzall.Models;
 
@@ -11,9 +12,10 @@ using Sportzall.Models;
 namespace Sportzall.Migrations
 {
     [DbContext(typeof(SportzalDBContext))]
-    partial class SportzalDBContextModelSnapshot : ModelSnapshot
+    [Migration("20221111174535_removeUserIdfromAbonement")]
+    partial class removeUserIdfromAbonement
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -57,9 +59,6 @@ namespace Sportzall.Migrations
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsPay")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()

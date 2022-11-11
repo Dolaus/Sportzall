@@ -1,0 +1,60 @@
+﻿@model Sportzall.Models.User
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Details</h4>
+    
+    </hr>
+     @* <div class="col-4">
+                      <img src="@URL.ImageUserURL@Model.Image" width=" 100%" style="border-radius:5px; border:1px solid #bbb" />
+                 </div>*@
+    <dl class="row">
+        <dt class="col-sm-2">
+             @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+             @Html.DisplayFor(modelItem => modelItem.Name)
+        </dd>
+        <dt class="col-sm-2">
+             @Html.DisplayNameFor(model => model.Year)
+        </dt>
+        <dd class="col-sm-10">
+             @Html.DisplayFor(modelItem => modelItem.Year)
+        </dd>
+
+
+
+        <dd class="col-sm-10">
+
+        </dd>
+          @foreach(var obj in Model.AbonementsUser)
+                {
+                    <tr>
+                        <td>
+                            @obj.Name
+                        </td>
+                        <td>
+                            @obj.Price
+                        </td>
+                        <td>
+                            @obj.Description
+                        </td>
+                        <td>
+                            @obj.IsPay
+                        </td>
+                    </tr>
+                }
+            <td>
+                <a asp-action="Edit" asp-route-email="@Model.Email">Edit User</a> 
+                <a asp-action="Delete" asp-route-email="@Model.Email">Delete User</a>
+            </td>         
+
+          
+        
+    </dl>
+</div>
+
