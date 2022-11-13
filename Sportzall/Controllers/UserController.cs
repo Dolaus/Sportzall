@@ -137,6 +137,10 @@ namespace Sportzall.Controllers
         public IActionResult Bascket()
         {
             var user = _dbContext.User.Include(i => i.AbonementsUser).FirstOrDefault(u => u.Email == User.Identity.Name);
+            if (user==null)
+            {
+                return RedirectToAction("Register", "Account");
+            }
             return View(user);
         }
         [HttpGet]
@@ -158,6 +162,11 @@ namespace Sportzall.Controllers
         }
         [HttpGet]
         public IActionResult AdminPanel()
+        {
+            return View();
+        }
+        [HttpGet]
+        public IActionResult TrenerPanel()
         {
             return View();
         }

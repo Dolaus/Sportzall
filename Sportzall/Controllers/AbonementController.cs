@@ -66,5 +66,21 @@ namespace Sportzall.Controllers
 
             return RedirectToAction("Details", "User", new {id = userAbonement.UserId});
         }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Create(Abonement abonement)
+        {
+            if (ModelState.IsValid)
+            {
+                _dbContext.Abonement.Add(abonement);
+                _dbContext.SaveChanges();
+            }
+            return View();
+        }
     }
 }

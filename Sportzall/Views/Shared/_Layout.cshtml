@@ -34,8 +34,8 @@
                         }
                           @if (User.IsInRole("trener"))
                         {
-                            <li class="nav-item">
-                                <p>Trener Panel</p>
+                             <li class="nav-item">
+                               <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="TrenerPanel">Trener Panel</a>
                             </li> 
                         } 
                         @if (User.Identity.IsAuthenticated == false)

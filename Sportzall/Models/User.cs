@@ -19,10 +19,12 @@ namespace Sportzall.Models
         public Role? Role { get; set; }
 
         public virtual List<AbonementsUser> AbonementsUser { get; set; }
+        public virtual List<TrenersUser> TrenersUser { get; set; }
 
         public User()
         {
             AbonementsUser = new List<AbonementsUser>();
+            TrenersUser = new List<TrenersUser>();
         }
 
        
