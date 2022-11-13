@@ -115,10 +115,33 @@ namespace Sportzall.Controllers
             var user = _dbContext.User.Include(u=>u.AbonementsUser).FirstOrDefault(u => u.Email == User.Identity.Name);
             if (user == null)
             {
-                return NotFound();
+                return RedirectToAction("Register","Account");
             }
 
             return View(user);
+        }
+        [HttpGet]
+        public IActionResult Bascket()
+        {
+            var user = _dbContext.User.Include(i => i.AbonementsUser).FirstOrDefault(u => u.Email == User.Identity.Name);
+            return View(user);
+        }
+        [HttpGet]
+        public IActionResult Pay(int? id)
+        {
+            if (id==0||id==null)
+            {
+                return NotFound();
+            }
+            var abonementsUser = _dbContext.AbonementsUser.Find(id);
+            if (abonementsUser == null)
+            {
+                return NotFound();
+            }
+            abonementsUser.IsPay = true;
+            _dbContext.AbonementsUser.Update(abonementsUser);
+            _dbContext.SaveChanges();
+            return RedirectToAction("Bascket");
         }
     }
 }

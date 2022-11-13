@@ -47,7 +47,7 @@ namespace Sportzall.Controllers
             }
 
 
-            return RedirectToAction( "Index","User");
+            return RedirectToAction( "Index");
         }
     }
 }
