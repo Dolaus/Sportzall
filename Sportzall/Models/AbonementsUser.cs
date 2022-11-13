@@ -7,8 +7,8 @@
         public string Description { get; set; }
         public int Price { get; set; }
         public bool IsPay { get; set; }
-        public int? UserId { get; set; }
-        public virtual User? User { get; set; }
+        public int UserId { get; set; }
+        public virtual User User { get; set; }
 
         
     }

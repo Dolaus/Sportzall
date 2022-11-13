@@ -40,7 +40,20 @@ namespace Sportzall.Controllers
             }
             return View(user);
         }
-
+        [HttpGet]
+        public IActionResult Details(int? id)
+        {
+            if (id==null||id==0)
+            {
+                return NotFound();
+            }
+            var user = _dbContext.User.Include(u=>u.AbonementsUser).FirstOrDefault(u=>u.Id==id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return View(user);
+        }
 
         [HttpGet]
         public IActionResult Edit(int? id)
@@ -143,5 +156,11 @@ namespace Sportzall.Controllers
             _dbContext.SaveChanges();
             return RedirectToAction("Bascket");
         }
+        [HttpGet]
+        public IActionResult AdminPanel()
+        {
+            return View();
+        }
+        
     }
 }

@@ -19,7 +19,7 @@ namespace Sportzall.Controllers
             
             return View(abonements);
         }
-
+        [HttpGet]
         public IActionResult Buy(int? id)
         {
             if (id == null||id==0)
@@ -48,6 +48,23 @@ namespace Sportzall.Controllers
 
 
             return RedirectToAction( "Index");
+        }
+        [HttpGet]
+        public IActionResult Delete(int? id)
+        {
+            if (id==null||id==0)
+            {
+                return NotFound();
+            }
+            var userAbonement= _dbContext.AbonementsUser.Find(id);
+            if (userAbonement == null)
+            {
+                return NotFound();
+            }
+            _dbContext.AbonementsUser.Remove(userAbonement);
+            _dbContext.SaveChanges();
+
+            return RedirectToAction("Details", "User", new {id = userAbonement.UserId});
         }
     }
 }

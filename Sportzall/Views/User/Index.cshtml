@@ -30,7 +30,9 @@
                 {
                     <tr>
                         <td>
-                            @obj.Name
+                            <a asp-controller="User" asp-route-Id="@obj.Id" asp-action="Details" >
+                                @obj.Name
+                            </a>
                         </td>
                         <td>
                             @obj.Role.Name
