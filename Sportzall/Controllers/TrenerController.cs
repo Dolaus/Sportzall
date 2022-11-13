@@ -15,7 +15,6 @@ namespace Sportzall.Controllers
         public IActionResult AllUser()
         {
             var user = _dbContext.User.Include(i => i.Role).Where(u => u.Role.Name == "user");
-
             return View(user);
         }
         [HttpGet]

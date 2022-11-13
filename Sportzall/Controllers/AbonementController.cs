@@ -82,5 +82,24 @@ namespace Sportzall.Controllers
             }
             return View();
         }
+
+        
+        [HttpGet]
+        public IActionResult DeleteUserAbonement(int? id)
+        {
+            if (id==null||id==0)
+            {
+                return NotFound();
+            }
+            var abonement= _dbContext.AbonementsUser.Find(id);
+            var currentuser = _dbContext.User.FirstOrDefault(u=>u.Email==User.Identity.Name);
+            if (abonement==null)
+            {
+                return NotFound();
+            }
+            _dbContext.AbonementsUser.Remove(abonement);
+            _dbContext.SaveChanges();
+            return RedirectToAction("AboutUser", "User", new {id=currentuser.Id});
+        }
     }
 }
