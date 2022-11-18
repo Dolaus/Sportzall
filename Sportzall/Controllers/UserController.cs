@@ -128,7 +128,7 @@ namespace Sportzall.Controllers
             var user = _dbContext.User.Include(u=>u.AbonementsUser).FirstOrDefault(u => u.Email == User.Identity.Name);
             if (user == null)
             {
-                return RedirectToAction("Register","Account");
+                return RedirectToAction("Login","Account");
             }
 
             return View(user);
@@ -139,7 +139,7 @@ namespace Sportzall.Controllers
             var user = _dbContext.User.Include(i => i.AbonementsUser).FirstOrDefault(u => u.Email == User.Identity.Name);
             if (user==null)
             {
-                return RedirectToAction("Register", "Account");
+                return RedirectToAction("Login", "Account");
             }
             return View(user);
         }

@@ -69,5 +69,145 @@ namespace Sportzall.Controllers
             _dbContext.SaveChanges();
             return RedirectToAction(nameof(MyTeam));
         }
+        [HttpGet]
+        public IActionResult MyRozklad()
+        {
+            //List<Hours> hours= new List<Hours>() { new Hours { Name="9-10"},new Hours { Name="10-11"} };
+
+            var user = _dbContext.User.FirstOrDefault(u => u.Email == User.Identity.Name);
+            var count = _dbContext.Week.Where(u => u.UserId == user.Id).Count();
+
+            if (count == null || count < 7)
+            {
+                Week monday = new Week()
+                {
+                    NameofDay = "Monday",
+                    UserId = user.Id
+                };
+                Week tuesday = new Week()
+                {
+                    NameofDay = "Tuesday",
+                    UserId = user.Id
+                };
+                Week wednesday = new Week()
+                {
+                    NameofDay = "Wednesday",
+                    UserId = user.Id
+                };
+                Week thursday = new Week()
+                {
+                    NameofDay = "Thursday",
+                    UserId = user.Id
+                };
+                Week friday = new Week()
+                {
+                    NameofDay = "Friday",
+                    UserId = user.Id
+                };
+                Week saturday = new Week()
+                {
+                    NameofDay = "Saturday",
+                    UserId = user.Id,
+
+                };
+                Week sunday = new Week()
+                {
+                    NameofDay = "Sunday",
+                    UserId = user.Id
+                };
+                _dbContext.Week.Add(monday);
+                _dbContext.Week.Add(tuesday);
+                _dbContext.Week.Add(wednesday);
+                _dbContext.Week.Add(thursday);
+                _dbContext.Week.Add(friday);
+                _dbContext.Week.Add(saturday);
+                _dbContext.Week.Add(sunday);
+                _dbContext.SaveChanges();
+
+                var days = _dbContext.Week.Where(u => u.UserId == user.Id);
+                foreach (var item in days)
+                {
+                    Hours hours1 = new Hours()
+                    {
+                        Name = "9-10",
+                        WeekId = item.Id
+                    };
+                    Hours hours2 = new Hours()
+                    {
+                        Name = "10-11",
+                        WeekId = item.Id
+                    };
+                    Hours hours3 = new Hours()
+                    {
+                        Name = "11-12",
+                        WeekId = item.Id
+                    };
+                    Hours hours4 = new Hours()
+                    {
+                        Name = "12-13",
+                        WeekId = item.Id
+                    };
+                    Hours hours5 = new Hours()
+                    {
+                        Name = "13-14",
+                        WeekId = item.Id
+                    };
+                    Hours hours6 = new Hours()
+                    {
+                        Name = "14-15",
+                        WeekId = item.Id
+                    };
+                    Hours hours7 = new Hours()
+                    {
+                        Name = "15-16",
+                        WeekId = item.Id
+                    };
+                    Hours hours8 = new Hours()
+                    {
+                        Name = "16-17",
+                        WeekId = item.Id
+                    };
+                    Hours hours9 = new Hours()
+                    {
+                        Name = "17-18",
+                        WeekId = item.Id
+                    };
+
+                    _dbContext.Hours.Add(hours1);
+                    _dbContext.Hours.Add(hours2);
+                    _dbContext.Hours.Add(hours3);
+                    _dbContext.Hours.Add(hours4);
+                    _dbContext.Hours.Add(hours5);
+                    _dbContext.Hours.Add(hours6);
+                    _dbContext.Hours.Add(hours7);
+                    _dbContext.Hours.Add(hours8);
+                    _dbContext.Hours.Add(hours9);
+                }
+
+
+                _dbContext.SaveChanges();
+            }
+
+            var rozklad = _dbContext.Week.Include(u => u.User).Where(u => u.UserId == user.Id);
+            if (rozklad == null)
+            {
+                return NotFound();
+            }
+            return View(rozklad);
+        }
+        [HttpGet]
+        public IActionResult MyDayHours(int? id)
+        {
+            if (id==null||id==0)
+            {
+                return NotFound();
+            }
+            var dayHours = _dbContext.Hours.Include(u => u.Week).Where(u=>u.WeekId==id);
+            if (dayHours == null)
+            {
+                return NotFound();
+            }
+            return View(dayHours);
+        }
     }
 }
