@@ -7,6 +7,8 @@ namespace Sportzall.Models
         public DbSet<User> User { get; set; }
 
         public DbSet<Role> Role { get; set; }
+        public DbSet<Week> Week { get; set; }
+        public DbSet<Hours> Hours { get; set; }
         public DbSet<Abonement> Abonement { get; set; }
         public DbSet<AbonementsUser> AbonementsUser { get; set; }
         public DbSet<TrenersUser> TrenersUser { get; set; }

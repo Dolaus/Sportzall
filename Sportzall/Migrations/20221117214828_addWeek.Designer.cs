@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sportzall.Models;
 
@@ -11,9 +12,10 @@ using Sportzall.Models;
 namespace Sportzall.Migrations
 {
     [DbContext(typeof(SportzalDBContext))]
-    partial class SportzalDBContextModelSnapshot : ModelSnapshot
+    [Migration("20221117214828_addWeek")]
+    partial class addWeek
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -76,37 +78,6 @@ namespace Sportzall.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("AbonementsUser");
-                });
-
-            modelBuilder.Entity("Sportzall.Models.Hours", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsBusy")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WeekId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("WeekId");
-
-                    b.ToTable("Hours");
                 });
 
             modelBuilder.Entity("Sportzall.Models.Role", b =>
@@ -250,17 +221,6 @@ namespace Sportzall.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Sportzall.Models.Hours", b =>
-                {
-                    b.HasOne("Sportzall.Models.Week", "Week")
-                        .WithMany("Hours")
-                        .HasForeignKey("WeekId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Week");
-                });
-
             modelBuilder.Entity("Sportzall.Models.TrenersUser", b =>
                 {
                     b.HasOne("Sportzall.Models.User", "User")
@@ -304,11 +264,6 @@ namespace Sportzall.Migrations
                     b.Navigation("TrenersUser");
 
                     b.Navigation("Week");
-                });
-
-            modelBuilder.Entity("Sportzall.Models.Week", b =>
-                {
-                    b.Navigation("Hours");
                 });
 #pragma warning restore 612, 618
         }

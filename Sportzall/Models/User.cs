@@ -17,12 +17,13 @@ namespace Sportzall.Models
 
         public int? RoleId { get; set; }
         public Role? Role { get; set; }
-
+        public virtual List<Week> Week { get; set; }
         public virtual List<AbonementsUser> AbonementsUser { get; set; }
         public virtual List<TrenersUser> TrenersUser { get; set; }
 
         public User()
         {
+            Week = new List<Week>();
             AbonementsUser = new List<AbonementsUser>();
             TrenersUser = new List<TrenersUser>();
         }
