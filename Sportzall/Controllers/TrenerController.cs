@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Sportzall.Models;
+using Sportzall.Models.ViewModel;
 
 namespace Sportzall.Controllers
 {
@@ -30,7 +31,7 @@ namespace Sportzall.Controllers
                 return NotFound();
             }
             User Trener = _dbContext.User.FirstOrDefault(u=>u.Email==User.Identity.Name);
-            if (!_dbContext.TrenersUser.Any(u => u.UnicKey == UserTeam.Id))
+            if (!_dbContext.TrenersUser.Where(u=>u.UserId==Trener.Id).Any(u => u.UnicKey == UserTeam.Id))
             {
                 TrenersUser trenersUser = new TrenersUser()
                 {
@@ -208,6 +209,37 @@ namespace Sportzall.Controllers
                 return NotFound();
             }
             return View(dayHours);
+        }
+        [HttpGet]
+        public IActionResult MyUserHours(int id)
+        {
+            User Trener = _dbContext.User.FirstOrDefault(u => u.Email == User.Identity.Name);
+            var team = _dbContext.TrenersUser.Where(u => u.UserId == Trener.Id);
+            
+            HoursUserViewModel hoursUserViewModel = new HoursUserViewModel()
+            {
+                HoursId = id,
+                Treners= team
+            };
+            return View(hoursUserViewModel);
+        }
+        [HttpGet]
+        public IActionResult AddToTheTrenerAtHour(int id,int HoursId)
+        {
+            if (id==null||HoursId==null)
+            {
+                return NotFound();
+            }
+            var CurrentHourse = _dbContext.Hours.Find(HoursId);
+            if (CurrentHourse==null)
+            {
+                return NotFound();
+            }
+
+            CurrentHourse.UserId = id;
+            _dbContext.Hours.Update(CurrentHourse);
+            _dbContext.SaveChanges();
+            return RedirectToAction(nameof(MyDayHours),new { id= CurrentHourse.WeekId});
         }
     }
 }
