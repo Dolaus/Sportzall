@@ -18,12 +18,17 @@ namespace Sportzall.Controllers
         public IActionResult Index()
         {
             IEnumerable<Abonement> abonements = _dbContext.Abonement;
-
+           
             return View(abonements);
         }
         [HttpGet]
         public IActionResult Buy(int? id)
         {
+            var user = _dbContext.User.Include(u => u.AbonementsUser).FirstOrDefault(u => u.Email == User.Identity.Name);
+            if (user == null)
+            {
+                return RedirectToAction("Login","Account");
+            }
             if (id == null || id == 0)
             {
                 return NotFound();
