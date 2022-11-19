@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Hours>
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Your Records</h4>
+    
+    </hr>
+     @* <div class="col-4">
+                      <img src="@URL.ImageUserURL@Model.Image" width=" 100%" style="border-radius:5px; border:1px solid #bbb" />
+                 </div>*@
+        <br />
+        <table class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                       You Records
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var obj in Model)
+                {
+                    <tr>
+                        <td>
+                            @obj.Name
+                        </td>
+                        <td>
+                            @obj.Week.User.Name
+                        </td>
+                        <td>
+                          
+                        </td>
+                        <td class="text-center">
+                           
+                        </td>
+                    </tr>
+                    }
+                
+            </tbody>
+        </table>
+</div>
+
+

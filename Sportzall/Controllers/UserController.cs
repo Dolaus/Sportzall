@@ -130,8 +130,29 @@ namespace Sportzall.Controllers
             {
                 return RedirectToAction("Login","Account");
             }
-
             return View(user);
+        }
+        [HttpGet]
+        public IActionResult MyRecords()
+        {
+            var user = _dbContext.User.Include(u => u.AbonementsUser).FirstOrDefault(u => u.Email == User.Identity.Name);
+            var allYourrecord = _dbContext.Hours.Include(u => u.Week).ThenInclude(u => u.User).Where(u => u.UserId == user.Id);
+
+            return View(allYourrecord);
+        }
+        [HttpGet]
+        public IActionResult MyAbonements()
+        {
+            var user = _dbContext.User.Include(u => u.AbonementsUser).FirstOrDefault(u => u.Email == User.Identity.Name);
+           
+            return View(user);
+        }
+        [HttpGet]
+        public IActionResult MyTreners()
+        {
+            var user = _dbContext.User.Include(u => u.AbonementsUser).FirstOrDefault(u => u.Email == User.Identity.Name);
+            var yourPersonalTrener = _dbContext.TrenersUser.Include(u => u.User).Where(u => u.UnicKey == user.Id);
+            return View(yourPersonalTrener);
         }
         [HttpGet]
         public IActionResult Bascket()

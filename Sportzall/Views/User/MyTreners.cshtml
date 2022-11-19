@@ -1,0 +1,51 @@
+﻿@model IEnumerable<TrenersUser>
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Your Treners</h4>
+    
+    </hr>
+     <table class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                       Treners Name
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+            @if (Model.Count() > 0)
+            {
+                @foreach (var obj in Model)
+                {
+                    <tr>
+                        <td>
+                            @obj.User.Name
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+                          
+                        </td>
+                        <td class="text-center">
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+               <p>You dont have treners</p>
+            }
+                
+            </tbody>
+     </table>
+
+        <br />
+</div>
+
+

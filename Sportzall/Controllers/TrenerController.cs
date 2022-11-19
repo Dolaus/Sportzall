@@ -246,12 +246,17 @@ namespace Sportzall.Controllers
                 return NotFound();
             }
             var CurrentHourse = _dbContext.Hours.Find(HoursId);
+            var user = _dbContext.TrenersUser.Find(id);
+            if(user == null)
+            {
+                return NotFound();
+            }
             if (CurrentHourse==null)
             {
                 return NotFound();
             }
 
-            CurrentHourse.UserId = id;
+            CurrentHourse.UserId = user.UnicKey;
             _dbContext.Hours.Update(CurrentHourse);
             _dbContext.SaveChanges();
             return RedirectToAction(nameof(MyDayHours),new { id= CurrentHourse.WeekId});
