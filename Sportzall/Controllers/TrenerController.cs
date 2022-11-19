@@ -224,6 +224,21 @@ namespace Sportzall.Controllers
             return View(hoursUserViewModel);
         }
         [HttpGet]
+        public IActionResult DeleteUserHours(int id)
+        {
+            Hours hours = _dbContext.Hours.Find(id);
+            if (hours == null)
+            {
+                return NotFound();
+            }
+            hours.UserId = null;
+            _dbContext.Hours.Update(hours);
+            _dbContext.SaveChanges();
+
+            return RedirectToAction(nameof(MyDayHours), new {id=hours.WeekId});
+        }
+
+        [HttpGet]
         public IActionResult AddToTheTrenerAtHour(int id,int HoursId)
         {
             if (id==null||HoursId==null)
