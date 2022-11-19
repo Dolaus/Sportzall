@@ -1,0 +1,90 @@
+﻿@model Sportzall.Models.ViewModel.SelectHourOfDayAddMeToRozkladViewModel
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Hours List</h2>
+        </div>
+    </div>
+    <br /><br />
+
+    @if (Model.Hours.Count()>0)
+    {
+        <table class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        Abonement Name
+                    </th>
+                    <th>
+                        IsBusy
+                    </th>
+                     <th>
+                        IsActive
+                    </th>
+                     <th>
+                        UserId
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var obj in Model.Hours)
+                {
+                    <tr>
+                        <td>
+                            @obj.Name
+                        </td>
+                        <td>
+                            @obj.IsBusy
+                        </td>
+                         <td>
+                            @obj.IsActive
+                        </td>
+                        @if (obj.UserId == null)
+                        {
+                            <td>
+                                @obj.UserId
+                            </td>
+                            <td class="text-center">
+                                <div class="w-75 btn-group" role="group">
+                                    <a asp-controller="User" asp-route-Id="@obj.Id"  asp-action="AddMeToTrenersRozklad" class=" btn btn-primary mx-2">
+                                        Записатися
+                                    </a>
+                                </div>
+                            </td>
+                        } else 
+                        if (obj.UserId == Model.user.Id)
+                        {
+                            <td>
+                                @obj.UserId
+                            </td>
+                            <td class="text-center">
+                                <div class="w-75 btn-group" role="group">
+                                   <a asp-controller="User" asp-route-Id="@obj.Id"  asp-action="DeleteMeToTrenersRozklad">
+                                        Скасувати
+                                    </a>
+                                </div>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                @obj.UserId
+                            </td>
+                            <td class="text-center">
+                                <div class="w-75 btn-group" role="group">
+                                    <p>Неможливо записатися</p>
+                                </div>
+                            </td>
+                        }
+
+                        
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p> No Users </p>
+    }
+</div>

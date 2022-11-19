@@ -8,7 +8,6 @@ namespace Sportzall.Controllers
 {
     public class UserController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
         private readonly SportzalDBContext _dbContext;
 
         public UserController(SportzalDBContext sportzalDBContext)
@@ -191,6 +190,76 @@ namespace Sportzall.Controllers
         {
             return View();
         }
+        [HttpGet]
+        public IActionResult SelectDayAddMyToRozklad(int trenersid)
+        {
+            if (trenersid==null||trenersid==0)
+            {
+                return NotFound();
+            }
+            var user = _dbContext.User.Find(trenersid);
+            if (user==null)
+            {
+                return NotFound();
+            }
+            var rozklad = _dbContext.Week.Include(u => u.User).Where(u => u.UserId == user.Id);
+            if (rozklad == null)
+            {
+                return NotFound();
+            }
+            return View(rozklad);
+        }
+        [HttpGet]
+        public IActionResult SelectHourOfDayAddMeToRozklad(int trenersid)
+        {
+            var currentuser = _dbContext.User.Include(u => u.AbonementsUser).FirstOrDefault(u => u.Email == User.Identity.Name);
+            if (trenersid == null || trenersid == 0)
+            {
+                return NotFound();
+            }
+            var dayHours = _dbContext.Hours.Include(u => u.Week).Where(u => u.WeekId == trenersid);
+            if (dayHours == null)
+            {
+                return NotFound();
+            }
+            SelectHourOfDayAddMeToRozkladViewModel selectHourOfDayAddMeToRozkladViewModel = new SelectHourOfDayAddMeToRozkladViewModel()
+            {
+                Hours = dayHours,
+                user = currentuser
+            };
+            return View(selectHourOfDayAddMeToRozkladViewModel);
+        }
         
+
+        [HttpGet]
+        public IActionResult AddMeToTrenersRozklad(int id)
+        {
+            var hour = _dbContext.Hours.Find(id);
+            if (hour == null)
+            {
+                return NotFound();
+            }
+            var user = _dbContext.User.Include(u => u.AbonementsUser).FirstOrDefault(u => u.Email == User.Identity.Name);
+            hour.UserId = user.Id;
+            _dbContext.Hours.Update(hour);
+            _dbContext.SaveChanges();
+            return RedirectToAction(nameof(SelectHourOfDayAddMeToRozklad), new {trenersid=hour.WeekId});
+        }
+
+        
+
+        [HttpGet]
+        public IActionResult DeleteMeToTrenersRozklad(int id)
+        {
+            var hour = _dbContext.Hours.Find(id);
+            if (hour==null)
+            {
+                return NotFound();
+            }
+            hour.UserId = null;
+            _dbContext.Hours.Update(hour);
+            _dbContext.SaveChanges();
+            return RedirectToAction(nameof(SelectHourOfDayAddMeToRozklad), new { trenersid = hour.WeekId });
+        }
     }
 }

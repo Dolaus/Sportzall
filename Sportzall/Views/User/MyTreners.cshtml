@@ -24,16 +24,22 @@
                 {
                     <tr>
                         <td>
-                            @obj.User.Name
+                            <a >                         
+                                @obj.User.Name
+                            </a>
+
                         </td>
                         <td>
 
                         </td>
                         <td>
-                          
+                           <div class="w-75 btn-group" role="group"> 
+                                <a  asp-controller="User"   asp-action="SelectDayAddMyToRozklad" asp-route-trenersid="@obj.UserId" >                         
+                                   Записатися
+                                </a>
+                            </div>
                         </td>
-                        <td class="text-center">
-                        </td>
+                        
                     </tr>
                 }
             }
