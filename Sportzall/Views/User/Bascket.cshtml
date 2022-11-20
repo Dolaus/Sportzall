@@ -1,4 +1,4 @@
-﻿<h1>Basket</h1>
+﻿<h1>Корзина</h1>
 
 @if (Model.AbonementsUser.Count > 0)
     {
@@ -8,13 +8,13 @@
             <thead>
                 <tr>
                     <th>
-                        Abonements Name
+                        Назва абонементу
                     </th>
                     <th>
-                        Description
+                        Опис
                     </th>
                     <th>
-                        Price
+                        Ціна
                     </th>
                 </tr>
             </thead>
@@ -40,7 +40,7 @@
                         <td class="text-center">
                             <div class="w-75 btn-group" role="group">
                                  <a asp-controller="User" asp-route-Id="@obj.Id" asp-action="Pay" class=" btn btn-primary mx-2">
-                                 Pay
+                                 Оплатити
                                  </a>
                                 
                             </div>
@@ -53,5 +53,5 @@
     }
     else
     {
-        <p>You dont have abonements</p>
+        <p>У вас немає абонементів</p>
     }

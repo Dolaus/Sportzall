@@ -2,12 +2,7 @@
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
-            <h2 class="text-primary">User List</h2>
-        </div>
-        <div class="col-6">
-            <a asp-controller="Abonement" asp-action="Create" class=" btn btn-primary">
-            Create New Abonement
-            </a>
+            <h2 class="text-primary">Всі абонементи</h2>
         </div>
     </div>
     <br /><br />
@@ -18,10 +13,10 @@
             <thead>
                 <tr>
                     <th>
-                        Abonement Name
+                        Назва абонементу
                     </th>
                     <th>
-                        Role
+                        Ціна
                     </th>
                 </tr>
             </thead>
@@ -38,7 +33,7 @@
                         <td class="text-center">
                             <div class="w-75 btn-group" role="group">
                                  <a asp-controller="Abonement" asp-route-Id="@obj.Id"  asp-action="Buy" class=" btn btn-primary mx-2">
-                                 Buy
+                                 Додати у корзину
                                  </a>
                                  
                             </div>
@@ -50,6 +45,6 @@
     }
     else
     {
-        <p> No Users </p>
+        <p> Немає абонементів </p>
     }
 </div>

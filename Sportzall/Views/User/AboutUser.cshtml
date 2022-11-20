@@ -3,10 +3,10 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Про користувача</h1>
 
 <div>
-    <h4>Details</h4>
+    <h4>Інформація</h4>
     
     </hr>
      @* <div class="col-4">
@@ -25,77 +25,18 @@
         <dd class="col-sm-10">
              @Html.DisplayFor(modelItem => modelItem.Year)
         </dd>
-
-
-
-       
-
-          
-        
-    </dl>
-    @if (Model.AbonementsUser.Count > 0)
-    {
-
-
-        <table class="table table-bordered table-striped" style="width:100%">
-            <thead>
-                <tr>
-                    <th>
-                        Abonements Name
-                    </th>
-                    <th>
-                        Description
-                    </th>
-                    <th>
-                        Price
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var obj in Model.AbonementsUser)
-                {
-                    
-                    
-                if(obj.IsPay==true)
-                {
-
-
-                    <tr>
-                        <td>
-                            @obj.Name
-                        </td>
-                        <td>
-                             @obj.Description
-                        </td>
-                        <td>
-                             @obj.Price
-                        </td>
-                        <td class="text-center">
-                            <div class="w-75 btn-group" role="group">
-                                 <a asp-controller="Abonement" asp-route-Id="@obj.Id" asp-action="DeleteUserAbonement" class=" btn btn-primary mx-2">
-                                 Delete Abonement
-                                 </a>
-                            </div>
-                        </td>
-                    </tr>
-                    }
-                }
-            </tbody>
-        </table>
-    }
-    else
-    {
-        <p>You dont have abonements</p>
-    }
 </div>
- <div class="w-75 btn-group" role="group">
+@if (Model.RoleId==2)
+{
+<div class="w-75 btn-group" role="group">
          <a asp-controller="User"   asp-action="MyRecords" class=" btn btn-primary mx-2">
-         My Records
+         Мої записи
          </a>
          <a asp-controller="User"   asp-action="MyAbonements"  class="btn btn-primary mx-2">
-         My Abonements
+         Мої аонементи
          </a>
          <a asp-controller="User"   asp-action="MyTreners"  class="btn btn-primary mx-2">
-         My Trener
+         Мої тренери
          </a>
 </div>
+}

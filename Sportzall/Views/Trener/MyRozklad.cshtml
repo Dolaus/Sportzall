@@ -2,12 +2,7 @@
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
-            <h2 class="text-primary">User List</h2>
-        </div>
-        <div class="col-6">
-            <a asp-controller="Abonement" asp-action="Create" class=" btn btn-primary">
-            Create New Abonement
-            </a>
+            <h2 class="text-primary">Список днів</h2>
         </div>
     </div>
     <br /><br />
@@ -18,10 +13,7 @@
             <thead>
                 <tr>
                     <th>
-                        Abonement Name
-                    </th>
-                    <th>
-                        Role
+                        Назва дня
                     </th>
                 </tr>
             </thead>
@@ -32,13 +24,10 @@
                         <td>
                             @obj.NameofDay
                         </td>
-                        <td>
-                            @obj.UserId
-                        </td>
                         <td class="text-center">
                             <div class="w-75 btn-group" role="group">
                                  <a asp-controller="Trener" asp-route-Id="@obj.Id"  asp-action="MyDayHours" class=" btn btn-primary mx-2">
-                                 Buy
+                                 Вибрати
                                  </a>
                                  
                             </div>
@@ -50,6 +39,6 @@
     }
     else
     {
-        <p> No Users </p>
+        <p> Ви не працюєте</p>
     }
 </div>
