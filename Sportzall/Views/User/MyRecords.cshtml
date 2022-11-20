@@ -25,21 +25,17 @@
                 @foreach (var obj in Model)
                 {
                     <tr>
+                         <td>
+                            @obj.Week.NameofDay
+                        </td>
                         <td>
                             @obj.Name
                         </td>
                         <td>
                             @obj.Week.User.Name
-                        </td>
-                        <td>
-                          
-                        </td>
-                        <td class="text-center">
-                           
-                        </td>
+                        </td>     
                     </tr>
-                    }
-                
+                }
             </tbody>
         </table>
 </div>
