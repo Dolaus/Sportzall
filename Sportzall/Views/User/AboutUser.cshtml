@@ -9,9 +9,9 @@
     <h4>Інформація</h4>
     
     </hr>
-     @* <div class="col-4">
+     <div class="col-4">
                       <img src="@URL.ImageUserURL@Model.Image" width=" 100%" style="border-radius:5px; border:1px solid #bbb" />
-                 </div>*@
+                 </div>
     <dl class="row">
         <dt class="col-sm-2">
              @Html.DisplayNameFor(model => model.Name)
@@ -26,8 +26,15 @@
              @Html.DisplayFor(modelItem => modelItem.Year)
         </dd>
 </div>
-@if (Model.RoleId==2)
+@if (Model.RoleId==2||Model.RoleId==3)
 {
+<div class="w-75 btn-group" role="group">
+         <a asp-controller="User"   asp-action="AddSomeInformationAboutUser">
+            Добавити Інформацію
+         </a>
+</div>
+<br />
+<br />
 <div class="w-75 btn-group" role="group">
          <a asp-controller="User"   asp-action="MyRecords" class=" btn btn-primary mx-2">
          Мої записи

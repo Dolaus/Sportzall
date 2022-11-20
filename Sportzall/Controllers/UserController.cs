@@ -9,9 +9,11 @@ namespace Sportzall.Controllers
     public class UserController : Controller
     {
         private readonly SportzalDBContext _dbContext;
+        private readonly IWebHostEnvironment _webHostEnviroment;
 
-        public UserController(SportzalDBContext sportzalDBContext)
+        public UserController(IWebHostEnvironment webHostEnviroment,SportzalDBContext sportzalDBContext)
         {
+            _webHostEnviroment = webHostEnviroment;
             _dbContext = sportzalDBContext;
         }
 
@@ -24,20 +26,43 @@ namespace Sportzall.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            return View();
+            CreateUserViewModel model = new CreateUserViewModel();
+            return View(model);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(User user)
+        public IActionResult Create(CreateUserViewModel model)
         {
+            var fileimages = HttpContext.Request.Form.Files;
             if (ModelState.IsValid)
             {
+                 if (fileimages.Count > 0)
+                {
+                    var webpath = _webHostEnviroment.WebRootPath;
+                    string upload = webpath + URL.ImageUserURL;
+                    string imageName = Guid.NewGuid().ToString();
+                    string imageextension = Path.GetExtension(fileimages[0].FileName);
+
+                    using (var fileStream = new FileStream(Path.Combine(upload, imageName + imageextension), FileMode.Create))
+                    {
+                        fileimages[0].CopyTo(fileStream);
+                    }
+                    model.Image = imageName + imageextension;
+                }
+                User user= new User();
+                user.Name = model.Name;
+                user.Email = model.Email;
+                user.Year = model.Year;
                 user.Role = _dbContext.Role.FirstOrDefault(r => r.Name == "user");
+                user.Id = model.Id;
+                user.Password = model.Password;
+                user.Image = model.Image;
+
                 _dbContext.User.Add(user);
                 _dbContext.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(user);
+            return View();
         }
         [HttpGet]
         public IActionResult Details(int? id)
@@ -80,18 +105,113 @@ namespace Sportzall.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(User user)
+        public IActionResult Edit(EditUserViewModel model)
         {
+            User user = _dbContext.User.Find(model.User.Id);
 
             if (ModelState.IsValid)
             {
+                var fileimages = HttpContext.Request.Form.Files;
+                if (fileimages.Count > 0)
+                {
+                    var webpath = _webHostEnviroment.WebRootPath;
+                    string upload = webpath + URL.ImageUserURL;
+                    string imageName = Guid.NewGuid().ToString();
+                    string imageextension = Path.GetExtension(fileimages[0].FileName);
+
+                    if (user.Image != null)
+                    {
+                        var oldFile = Path.Combine(upload, user.Image);
+                        if (System.IO.File.Exists(oldFile))
+                        {
+                            System.IO.File.Delete(oldFile);
+                            using (var fileStream = new FileStream(Path.Combine(upload, imageName + imageextension), FileMode.Create))
+                            {
+                                fileimages[0].CopyTo(fileStream);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        using (var fileStream = new FileStream(Path.Combine(upload, imageName + imageextension), FileMode.Create))
+                        {
+                            fileimages[0].CopyTo(fileStream);
+                        }
+                    }
+                    user.Image = imageName + imageextension;
+                }
+                user.Year = model.User.Year;
+                user.RoleId = model.User.RoleId;
+                user.Email = model.User.Email;
+                user.Password=model.User.Password;
+               
                 _dbContext.User.Update(user);
                 _dbContext.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(user);
+            model.RoleSelectList = _dbContext.Role.Select(u => new SelectListItem
+            {
+                Text = u.Name,
+                Value = u.Id.ToString()
+            });
+            return View(model);
         }
 
+        [HttpGet]
+        public IActionResult AddSomeInformationAboutUser()
+        {
+            var user = _dbContext.User.Include(u => u.AbonementsUser).FirstOrDefault(u => u.Email == User.Identity.Name);
+            return View(user);
+        }
+        [HttpPost]
+        public IActionResult AddSomeInformationAboutUser(User user)
+        {
+            User olduser = _dbContext.User.Find(user.Id);
+
+            if (ModelState.IsValid)
+            {
+                var fileimages = HttpContext.Request.Form.Files;
+                if (fileimages.Count > 0)
+                {
+                    var webpath = _webHostEnviroment.WebRootPath;
+                    string upload = webpath + URL.ImageUserURL;
+                    string imageName = Guid.NewGuid().ToString();
+                    string imageextension = Path.GetExtension(fileimages[0].FileName);
+
+                    if (olduser.Image != null)
+                    {
+                        var oldFile = Path.Combine(upload, olduser.Image);
+                        if (System.IO.File.Exists(oldFile))
+                        {
+                            System.IO.File.Delete(oldFile);
+                            using (var fileStream = new FileStream(Path.Combine(upload, imageName + imageextension), FileMode.Create))
+                            {
+                                fileimages[0].CopyTo(fileStream);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        using (var fileStream = new FileStream(Path.Combine(upload, imageName + imageextension), FileMode.Create))
+                        {
+                            fileimages[0].CopyTo(fileStream);
+                        }
+                    }
+                    olduser.Image = imageName + imageextension;
+                }
+                olduser.Year = user.Year;
+                olduser.RoleId = user.RoleId;
+                olduser.Email = user.Email;
+                olduser.Password = user.Password;
+                olduser.Name = user.Name;
+                _dbContext.User.Update(olduser);
+                _dbContext.SaveChanges();
+                return RedirectToAction(nameof(AboutUser));
+            }
+
+
+            return View(user);
+        }
 
         [HttpGet]
         public IActionResult Delete(int? id)
@@ -112,8 +232,19 @@ namespace Sportzall.Controllers
         public IActionResult DeleteConfirmed(int? id)
         {
             var user = _dbContext.User.Find(id);
+
+            var webpath = _webHostEnviroment.WebRootPath;
+            string upload = webpath + URL.ImageUserURL;
             if (user!=null)
-            {          
+            {
+                if (user.Image != null)
+                {
+                    var oldFile = Path.Combine(upload, user.Image);
+                    if (System.IO.File.Exists(oldFile))
+                    {
+                        System.IO.File.Delete(oldFile);
+                    }
+                }
                 user.Role = _dbContext.Role.FirstOrDefault(r => r.Name == "user");
                 _dbContext.User.Remove(user);
                 _dbContext.SaveChanges();
