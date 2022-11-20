@@ -18,28 +18,44 @@
                     <th>
                         IsBusy
                     </th>
-                     <th>
+                    <th>
                         IsActive
                     </th>
-                     <th>
+                    <th>
                         UserId
                     </th>
                 </tr>
             </thead>
             <tbody>
-                @foreach(var obj in Model)
+                @foreach (var obj in Model)
                 {
                     <tr>
                         <td>
                             @obj.Name
                         </td>
                         <td>
-                            @obj.IsBusy
+                            @if (obj.IsBusy == false)
+                            {
+
+                                <a asp-controller="Trener" asp-route-Id="@obj.Id"  asp-action="ChangeStatus">
+                                   Не зайнятий
+                                </a>
+
+                            }
+                            else
+                    @if (obj.IsBusy == true)
+                            {
+
+                                <a asp-controller="Trener" asp-route-Id="@obj.Id"  asp-action="ChangeStatus">
+                                    Зайнятий
+                                </a>
+
+                            }
                         </td>
                          <td>
                             @obj.IsActive
                         </td>
-                        @if (obj.UserId == null)
+                        @if (obj.UserId == null||obj.IsBusy==false)
                         {
                             <td>
                                 @obj.UserId
@@ -53,7 +69,7 @@
                             </div>
                             </td>
                         }
-                        else
+                        else if (obj.UserId != null || obj.IsBusy == true)
                         {
                              <td>
                                 @obj.UserId

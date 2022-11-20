@@ -231,13 +231,35 @@ namespace Sportzall.Controllers
             {
                 return NotFound();
             }
+            hours.IsBusy = false;
             hours.UserId = null;
             _dbContext.Hours.Update(hours);
             _dbContext.SaveChanges();
 
             return RedirectToAction(nameof(MyDayHours), new {id=hours.WeekId});
         }
+        [HttpGet]
+        public IActionResult ChangeStatus(int id)
+        {
+            Hours hours = _dbContext.Hours.Find(id);
+            if (hours == null)
+            {
+                return NotFound();
+            }
+            if (hours.IsBusy == false)
+            {
+                hours.IsBusy = true;
+            }
+            else
+            {
+                hours.IsBusy = false;
+            }
+            _dbContext.Hours.Update(hours);
+            _dbContext.SaveChanges();
 
+            return RedirectToAction(nameof(MyDayHours), new { id = hours.WeekId });
+        }
+        
         [HttpGet]
         public IActionResult AddToTheTrenerAtHour(int id,int HoursId)
         {
@@ -255,7 +277,7 @@ namespace Sportzall.Controllers
             {
                 return NotFound();
             }
-
+            CurrentHourse.IsBusy = true;
             CurrentHourse.UserId = user.UnicKey;
             _dbContext.Hours.Update(CurrentHourse);
             _dbContext.SaveChanges();

@@ -39,7 +39,7 @@
                          <td>
                             @obj.IsActive
                         </td>
-                        @if (obj.UserId == null)
+                        @if (obj.UserId == null&&obj.IsBusy==false)
                         {
                             <td>
                                 @obj.UserId
