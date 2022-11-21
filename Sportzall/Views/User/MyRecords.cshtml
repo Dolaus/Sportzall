@@ -34,6 +34,9 @@
                         <td>
                             @obj.Week.User.Name
                         </td>     
+                        <td>
+                                        <a  asp-action="DeleteMeTofromMyRecords" asp-route-id="@obj.Id" >Скасувати запис</a>
+                       </td>  
                     </tr>
                 }
             </tbody>

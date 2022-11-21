@@ -35,7 +35,9 @@
 </div>
 <br />
 <br />
-<div class="w-75 btn-group" role="group">
+    @if (Model.RoleId == 2)
+    {
+        <div class="w-75 btn-group" role="group">
          <a asp-controller="User"   asp-action="MyRecords" class=" btn btn-primary mx-2">
          Мої записи
          </a>
@@ -45,5 +47,6 @@
          <a asp-controller="User"   asp-action="MyTreners"  class="btn btn-primary mx-2">
          Мої тренери
          </a>
-</div>
+         </div>
+    }
 }
