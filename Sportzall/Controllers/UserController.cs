@@ -380,7 +380,7 @@ namespace Sportzall.Controllers
         
 
         [HttpGet]
-        public IActionResult DeleteMeToTrenersRozklad(int id)
+        public IActionResult DeleteMeToTrenersRozklad(int id)//Винести логіку з DeleteMeToTrenersRozklad
         {
             var hour = _dbContext.Hours.Find(id);
             if (hour==null)
@@ -388,9 +388,25 @@ namespace Sportzall.Controllers
                 return NotFound();
             }
             hour.UserId = null;
+            hour.IsBusy = false;
             _dbContext.Hours.Update(hour);
             _dbContext.SaveChanges();
             return RedirectToAction(nameof(SelectHourOfDayAddMeToRozklad), new { trenersid = hour.WeekId });
+        }
+
+        [HttpGet]//Винести логіку з DeleteMeToTrenersRozklad
+        public IActionResult DeleteMeTofromMyRecords(int id)
+        {
+            var hour = _dbContext.Hours.Find(id);
+            if (hour == null)
+            {
+                return NotFound();
+            }
+            hour.UserId = null;
+            hour.IsBusy = false;
+            _dbContext.Hours.Update(hour);
+            _dbContext.SaveChanges();
+            return RedirectToAction(nameof(MyRecords));
         }
     }
 }
