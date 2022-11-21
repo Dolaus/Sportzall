@@ -360,8 +360,6 @@ namespace Sportzall.Controllers
             };
             return View(selectHourOfDayAddMeToRozkladViewModel);
         }
-        
-
         [HttpGet]
         public IActionResult AddMeToTrenersRozklad(int id)
         {
@@ -376,9 +374,6 @@ namespace Sportzall.Controllers
             _dbContext.SaveChanges();
             return RedirectToAction(nameof(SelectHourOfDayAddMeToRozklad), new {trenersid=hour.WeekId});
         }
-
-        
-
         [HttpGet]
         public IActionResult DeleteMeToTrenersRozklad(int id)
         {
