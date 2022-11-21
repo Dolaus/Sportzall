@@ -57,6 +57,8 @@ namespace Sportzall.Controllers
                 user.Id = model.Id;
                 user.Password = model.Password;
                 user.Image = model.Image;
+                user.PhoneNumber = model.PhoneNumber;
+                user.ShortInfo = model.ShortInfo;
 
                 _dbContext.User.Add(user);
                 _dbContext.SaveChanges();
@@ -144,7 +146,9 @@ namespace Sportzall.Controllers
                 user.RoleId = model.User.RoleId;
                 user.Email = model.User.Email;
                 user.Password=model.User.Password;
-               
+                user.PhoneNumber = model.User.PhoneNumber;
+                user.ShortInfo = model.User.ShortInfo;
+
                 _dbContext.User.Update(user);
                 _dbContext.SaveChanges();
                 return RedirectToAction("Index");
@@ -204,6 +208,8 @@ namespace Sportzall.Controllers
                 olduser.Email = user.Email;
                 olduser.Password = user.Password;
                 olduser.Name = user.Name;
+                olduser.PhoneNumber = user.PhoneNumber;
+                olduser.ShortInfo = user.ShortInfo;
                 _dbContext.User.Update(olduser);
                 _dbContext.SaveChanges();
                 return RedirectToAction(nameof(AboutUser));

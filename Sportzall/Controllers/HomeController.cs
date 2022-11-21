@@ -17,7 +17,7 @@ namespace Sportzall.Controllers
 
         public IActionResult Index()
         {
-            IEnumerable<User> users=_dbContext.User.Include(u=>u.Role);
+            IEnumerable<User> users=_dbContext.User.Include(u=>u.Role).Where(u=>u.RoleId==3);
             return View(users);
         }
 
