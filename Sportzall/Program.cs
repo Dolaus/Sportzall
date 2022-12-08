@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using Sportzall.Models;
+using Sportzall.Repositories.Implementations;
+using Sportzall.Repositories.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +18,8 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
                 });
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<IUserControllable, UserControllable>();
 
 var app = builder.Build();
 

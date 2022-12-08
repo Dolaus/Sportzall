@@ -37,6 +37,26 @@
         <dd class="col-sm-10">
              @Html.DisplayFor(modelItem => modelItem.PhoneNumber)
         </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ChessPress)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(modelItem => modelItem.ChessPress)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.BenchPress)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(modelItem => modelItem.BenchPress)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Squat)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(modelItem => modelItem.Squat)
+        </dd>
 </div>
 @if (Model.RoleId==2||Model.RoleId==3)
 {
@@ -62,3 +82,41 @@
          </div>
     }
 }
+<h4>Силові показники</h4>
+<table class="table table-bordered table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>
+                Жим від грудей
+            </th>
+            <th>
+                Жим лежачи
+            </th>
+            <th>
+                Присід
+            </th>
+            <th>
+                Дата
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var obj in Model.StrangeUserRecord)
+        {
+            <tr>
+                <td>
+                    @obj.ChessPress
+                </td>
+                <td>
+                    @obj.BenchPress
+                </td>
+                <td>
+                    @obj.Squat
+                </td>
+                <td>
+                    @obj.DateTimeDateTime
+                </td>
+            </tr>
+
+        }
+    </tbody>

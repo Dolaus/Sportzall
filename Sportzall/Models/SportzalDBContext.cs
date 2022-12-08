@@ -12,6 +12,7 @@ namespace Sportzall.Models
         public DbSet<Abonement> Abonement { get; set; }
         public DbSet<AbonementsUser> AbonementsUser { get; set; }
         public DbSet<TrenersUser> TrenersUser { get; set; }
+        public DbSet<StrangeUserRecord> StrangeUserRecord { get; set; }
 
         public SportzalDBContext(DbContextOptions<SportzalDBContext> options)
            : base(options)

@@ -17,14 +17,18 @@ namespace Sportzall.Models
         public string? PhoneNumber { get; set; }
         public string? Image { get; set; }
 
+        public int? ChessPress { get; set; }
+        public int? BenchPress { get; set; }
+        public int? Squat { get; set; }
         public int? RoleId { get; set; }
         public Role? Role { get; set; }
         public virtual List<Week> Week { get; set; }
         public virtual List<AbonementsUser> AbonementsUser { get; set; }
         public virtual List<TrenersUser> TrenersUser { get; set; }
-
+        public virtual List<StrangeUserRecord> StrangeUserRecord { get; set; }
         public User()
         {
+            StrangeUserRecord = new List<StrangeUserRecord>();
             Week = new List<Week>();
             AbonementsUser = new List<AbonementsUser>();
             TrenersUser = new List<TrenersUser>();

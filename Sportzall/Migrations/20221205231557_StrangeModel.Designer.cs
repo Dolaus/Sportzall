@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sportzall.Models;
 
@@ -11,9 +12,10 @@ using Sportzall.Models;
 namespace Sportzall.Migrations
 {
     [DbContext(typeof(SportzalDBContext))]
-    partial class SportzalDBContextModelSnapshot : ModelSnapshot
+    [Migration("20221205231557_StrangeModel")]
+    partial class StrangeModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -210,12 +212,6 @@ namespace Sportzall.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("BenchPress")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ChessPress")
-                        .HasColumnType("int");
-
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -239,9 +235,6 @@ namespace Sportzall.Migrations
 
                     b.Property<string>("ShortInfo")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("Squat")
-                        .HasColumnType("int");
 
                     b.Property<int?>("Year")
                         .HasColumnType("int");

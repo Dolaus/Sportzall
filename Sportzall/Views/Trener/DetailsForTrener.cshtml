@@ -1,0 +1,139 @@
+﻿@model Sportzall.Models.User
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Details</h4>
+
+    </hr>
+    <div class="col-4">
+        <img src="@URL.ImageUserURL@Model.Image" width=" 100%" style="border-radius:5px; border:1px solid #bbb" />
+    </div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(modelItem => modelItem.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Year)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(modelItem => modelItem.Year)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ShortInfo)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(modelItem => modelItem.ShortInfo)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(modelItem => modelItem.PhoneNumber)
+        </dd>
+
+
+
+
+
+    </dl>
+    @if (Model.RoleId == 2)
+    {
+        @if (Model.AbonementsUser.Count > 0)
+        {
+
+
+            <table class="table table-bordered table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>
+                            Abonements Name
+                        </th>
+                        <th>
+                            Description
+                        </th>
+                        <th>
+                            Price
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var obj in Model.AbonementsUser)
+                    {
+
+
+                        if (obj.IsPay == true)
+                        {
+                            <tr>
+                                <td>
+                                    @obj.Name
+                                </td>
+                                <td>
+                                    @obj.Description
+                                </td>
+                                <td>
+                                    @obj.Price
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>You dont have abonements</p>
+        }
+        <h4>Силові показники</h4>
+        <table class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        Жим від грудей
+                    </th>
+                    <th>
+                        Жим лежачи
+                    </th>
+                    <th>
+                        Присід
+                    </th>
+                    <th>
+                        Дата
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var obj in Model.StrangeUserRecord)
+                {
+                    <tr>
+                        <td>
+                            @obj.ChessPress
+                        </td>
+                        <td>
+                            @obj.BenchPress
+                        </td>
+                        <td>
+                            @obj.Squat
+                        </td>
+                        <td>
+                            @obj.DateTimeDateTime
+                        </td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+        <div class="w-75 btn-group" role="group">
+            <a asp-controller="Trener" asp-route-Id="@Model.Id" asp-action="StrangeRecordCreate" class=" btn btn-primary mx-2">
+                Додати силові показники
+            </a>
+        </div>
+    }
+</div>
+

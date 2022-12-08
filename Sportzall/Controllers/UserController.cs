@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Sportzall.Models;
 using Sportzall.Models.ViewModel;
+using Sportzall.Repositories.Interfaces;
 
 namespace Sportzall.Controllers
 {
@@ -10,16 +11,18 @@ namespace Sportzall.Controllers
     {
         private readonly SportzalDBContext _dbContext;
         private readonly IWebHostEnvironment _webHostEnviroment;
+        private readonly IUserControllable _userControllable;
 
-        public UserController(IWebHostEnvironment webHostEnviroment,SportzalDBContext sportzalDBContext)
+        public UserController(IWebHostEnvironment webHostEnviroment,SportzalDBContext sportzalDBContext,IUserControllable userControllable)
         {
             _webHostEnviroment = webHostEnviroment;
             _dbContext = sportzalDBContext;
+            _userControllable = userControllable;
         }
 
         public IActionResult Index()
         {
-            IEnumerable<User> users = _dbContext.User.Include(u => u.Role);
+            IEnumerable<User> users = _userControllable.GetAllUsers();
             return View(users);
         }
 
@@ -59,21 +62,23 @@ namespace Sportzall.Controllers
                 user.Image = model.Image;
                 user.PhoneNumber = model.PhoneNumber;
                 user.ShortInfo = model.ShortInfo;
+                user.BenchPress = model.BenchPress;
+                user.ChessPress = model.ChessPress;
+                user.Squat = model.Squat;
 
-                _dbContext.User.Add(user);
-                _dbContext.SaveChanges();
+                _userControllable.AddUser(user);
                 return RedirectToAction("Index");
             }
             return View();
         }
         [HttpGet]
-        public IActionResult Details(int? id)
+        public IActionResult Details(int id)
         {
             if (id==null||id==0)
             {
                 return NotFound();
             }
-            var user = _dbContext.User.Include(u=>u.AbonementsUser).FirstOrDefault(u=>u.Id==id);
+            var user = _userControllable.FindUserById(id);
             if (user == null)
             {
                 return NotFound();
@@ -98,7 +103,7 @@ namespace Sportzall.Controllers
                 return View(editUserViewModel);
             }
 
-            editUserViewModel.User = _dbContext.User.Find(id);
+            editUserViewModel.User = _userControllable.FindUserById(id);
             if (editUserViewModel == null)
             {
                 return NotFound();
@@ -109,7 +114,7 @@ namespace Sportzall.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(EditUserViewModel model)
         {
-            User user = _dbContext.User.Find(model.User.Id);
+            User user = _userControllable.FindUserById(model.User.Id);
 
             if (ModelState.IsValid)
             {
@@ -148,9 +153,10 @@ namespace Sportzall.Controllers
                 user.Password=model.User.Password;
                 user.PhoneNumber = model.User.PhoneNumber;
                 user.ShortInfo = model.User.ShortInfo;
-
-                _dbContext.User.Update(user);
-                _dbContext.SaveChanges();
+                user.ChessPress = model.User.ChessPress;
+                user.BenchPress = model.User.BenchPress;
+                user.Squat = model.User.Squat;
+                _userControllable.UpdateUser(user);
                 return RedirectToAction("Index");
             }
             model.RoleSelectList = _dbContext.Role.Select(u => new SelectListItem
@@ -170,7 +176,7 @@ namespace Sportzall.Controllers
         [HttpPost]
         public IActionResult AddSomeInformationAboutUser(User user)
         {
-            User olduser = _dbContext.User.Find(user.Id);
+            User olduser = _userControllable.FindUserById(user.Id);
 
             if (ModelState.IsValid)
             {
@@ -210,6 +216,9 @@ namespace Sportzall.Controllers
                 olduser.Name = user.Name;
                 olduser.PhoneNumber = user.PhoneNumber;
                 olduser.ShortInfo = user.ShortInfo;
+                olduser.ChessPress = user.ChessPress;
+                olduser.BenchPress = user.BenchPress;
+                olduser.Squat = user.Squat;
                 _dbContext.User.Update(olduser);
                 _dbContext.SaveChanges();
                 return RedirectToAction(nameof(AboutUser));
@@ -261,7 +270,7 @@ namespace Sportzall.Controllers
         [HttpGet]
         public IActionResult AboutUser()
         {
-            var user = _dbContext.User.Include(u=>u.AbonementsUser).FirstOrDefault(u => u.Email == User.Identity.Name);
+            var user = _dbContext.User.Include(u=>u.AbonementsUser).Include(i=>i.StrangeUserRecord).FirstOrDefault(u => u.Email == User.Identity.Name);
             if (user == null)
             {
                 return RedirectToAction("Login","Account");

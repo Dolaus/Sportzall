@@ -283,5 +283,46 @@ namespace Sportzall.Controllers
             _dbContext.SaveChanges();
             return RedirectToAction(nameof(MyDayHours),new { id= CurrentHourse.WeekId});
         }
+        [HttpGet]
+        public IActionResult DetailsForTrener(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            var user = _dbContext.User.Include(u => u.AbonementsUser).Include(u=>u.StrangeUserRecord).FirstOrDefault(u => u.Id == id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return View(user);
+        }
+        [HttpGet]
+        public IActionResult StrangeRecordCreate(int id) 
+        {
+            StrangeUserRecord strangeUserList = new StrangeUserRecord();
+            strangeUserList.UserId = id;
+            strangeUserList.DateTimeDateTime = DateTime.Now.ToShortDateString();
+            return View(strangeUserList);
+        }
+        [HttpPost]
+        public IActionResult StrangeRecordCreate(StrangeUserRecord strangeUserList)
+        {
+            if (strangeUserList == null)
+            {
+                return NotFound();
+            }
+            StrangeUserRecord NewstrangeUserRecord = new StrangeUserRecord()
+            {
+                UserId = strangeUserList.UserId,
+                BenchPress = strangeUserList.BenchPress,
+                ChessPress = strangeUserList.ChessPress,
+                Squat = strangeUserList.Squat,
+                DateTimeDateTime = strangeUserList.DateTimeDateTime
+            };
+            _dbContext.StrangeUserRecord.Add(NewstrangeUserRecord);
+            _dbContext.SaveChanges();
+            return RedirectToAction(nameof(DetailsForTrener), new {id=strangeUserList.UserId});
+        }
     }
 }
