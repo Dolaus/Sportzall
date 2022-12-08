@@ -11,7 +11,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-black border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">SportHub</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -21,47 +21,47 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         @if (User.IsInRole("user"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Abonement" asp-action="Index">Абонементи</a>
+                                <a class="nav-link text-light" asp-area="" asp-controller="Abonement" asp-action="Index">Абонементи</a>
                         </li>
                         }
                         @if (User.IsInRole("admin"))
                         {
                             <li class="nav-item">
-                               <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="AdminPanel">Панель адміна</a>
+                               <a class="nav-link text-light" asp-area="" asp-controller="User" asp-action="AdminPanel">Панель адміна</a>
                             </li> 
                         }
                           @if (User.IsInRole("trener"))
                         {
                              <li class="nav-item">
-                               <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="TrenerPanel">Панель тренера</a>
+                               <a class="nav-link text-light" asp-area="" asp-controller="User" asp-action="TrenerPanel">Панель тренера</a>
                             </li> 
                         } 
                         @if (User.Identity.IsAuthenticated == false)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Увійти</a>
+                                <a class="nav-link text-light" asp-area="" asp-controller="Account" asp-action="Login">Увійти</a>
                         </li>
                          <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Зареєструватися</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Account" asp-action="Register">Зареєструватися</a>
                         </li>
                         }else
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Вийти</a>
+                                <a class="nav-link text-light" asp-area="" asp-controller="Account" asp-action="Logout">Вийти</a>
                         </li>
                         }
                         <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="AboutUser">Про користувача</a>
+                                <a class="nav-link text-light" asp-area="" asp-controller="User" asp-action="AboutUser">Про користувача</a>
                         </li>
                         @if (User.IsInRole("user"))
                         {
                             <li class="nav-item">           
-                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Bascket">Корзина</a>                            
+                                <a class="nav-link text-light" asp-area="" asp-controller="User" asp-action="Bascket">Корзина</a>                            
                         </li>
                         }
                     </ul>
