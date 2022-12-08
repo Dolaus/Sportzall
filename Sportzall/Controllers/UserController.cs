@@ -170,7 +170,7 @@ namespace Sportzall.Controllers
         [HttpGet]
         public IActionResult AddSomeInformationAboutUser()
         {
-            var user = _dbContext.User.Include(u => u.AbonementsUser).FirstOrDefault(u => u.Email == User.Identity.Name);
+            var user = _userControllable.FindUserByEmail(User.Identity.Name);
             return View(user);
         }
         [HttpPost]
@@ -219,8 +219,7 @@ namespace Sportzall.Controllers
                 olduser.ChessPress = user.ChessPress;
                 olduser.BenchPress = user.BenchPress;
                 olduser.Squat = user.Squat;
-                _dbContext.User.Update(olduser);
-                _dbContext.SaveChanges();
+                _userControllable.UpdateUser(olduser);
                 return RedirectToAction(nameof(AboutUser));
             }
 
@@ -235,7 +234,7 @@ namespace Sportzall.Controllers
             {
                 return NotFound();
             }
-            var user = _dbContext.User.Find(id);
+            var user = _userControllable.FindUserById(id);
             if (user == null)
             {
                 return NotFound();
@@ -246,7 +245,7 @@ namespace Sportzall.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int? id)
         {
-            var user = _dbContext.User.Find(id);
+            var user = _userControllable.FindUserById(id);
 
             var webpath = _webHostEnviroment.WebRootPath;
             string upload = webpath + URL.ImageUserURL;
@@ -261,8 +260,7 @@ namespace Sportzall.Controllers
                     }
                 }
                 user.Role = _dbContext.Role.FirstOrDefault(r => r.Name == "user");
-                _dbContext.User.Remove(user);
-                _dbContext.SaveChanges();
+                _userControllable.RemoveUser(user);
                 return RedirectToAction("Index");
             }
             return NotFound();
@@ -270,7 +268,7 @@ namespace Sportzall.Controllers
         [HttpGet]
         public IActionResult AboutUser()
         {
-            var user = _dbContext.User.Include(u=>u.AbonementsUser).Include(i=>i.StrangeUserRecord).FirstOrDefault(u => u.Email == User.Identity.Name);
+            var user = _userControllable.FindUserByEmail(User.Identity.Name);
             if (user == null)
             {
                 return RedirectToAction("Login","Account");
@@ -280,7 +278,7 @@ namespace Sportzall.Controllers
         [HttpGet]
         public IActionResult MyRecords()
         {
-            var user = _dbContext.User.Include(u => u.AbonementsUser).FirstOrDefault(u => u.Email == User.Identity.Name);
+            var user = _userControllable.FindUserByEmail(User.Identity.Name);
             var allYourrecord = _dbContext.Hours.Include(u => u.Week).ThenInclude(u => u.User).Where(u => u.UserId == user.Id);
 
             return View(allYourrecord);
@@ -288,21 +286,21 @@ namespace Sportzall.Controllers
         [HttpGet]
         public IActionResult MyAbonements()
         {
-            var user = _dbContext.User.Include(u => u.AbonementsUser).FirstOrDefault(u => u.Email == User.Identity.Name);
+            var user = _userControllable.FindUserByEmail(User.Identity.Name);
            
             return View(user);
         }
         [HttpGet]
         public IActionResult MyTreners()
         {
-            var user = _dbContext.User.Include(u => u.AbonementsUser).FirstOrDefault(u => u.Email == User.Identity.Name);
+            var user = _userControllable.FindUserByEmail(User.Identity.Name);
             var yourPersonalTrener = _dbContext.TrenersUser.Include(u => u.User).Where(u => u.UnicKey == user.Id);
             return View(yourPersonalTrener);
         }
         [HttpGet]
         public IActionResult Bascket()
         {
-            var user = _dbContext.User.Include(i => i.AbonementsUser).FirstOrDefault(u => u.Email == User.Identity.Name);
+            var user = _userControllable.FindUserByEmail(User.Identity.Name);
             if (user==null)
             {
                 return RedirectToAction("Login", "Account");
@@ -343,7 +341,7 @@ namespace Sportzall.Controllers
             {
                 return NotFound();
             }
-            var user = _dbContext.User.Find(trenersid);
+            var user = _userControllable.FindUserById(trenersid);
             if (user==null)
             {
                 return NotFound();
@@ -358,7 +356,7 @@ namespace Sportzall.Controllers
         [HttpGet]
         public IActionResult SelectHourOfDayAddMeToRozklad(int trenersid)
         {
-            var currentuser = _dbContext.User.Include(u => u.AbonementsUser).FirstOrDefault(u => u.Email == User.Identity.Name);
+            var currentuser = _userControllable.FindUserByEmail(User.Identity.Name);
             if (trenersid == null || trenersid == 0)
             {
                 return NotFound();
@@ -383,7 +381,7 @@ namespace Sportzall.Controllers
             {
                 return NotFound();
             }
-            var user = _dbContext.User.Include(u => u.AbonementsUser).FirstOrDefault(u => u.Email == User.Identity.Name);
+            var user = _userControllable.FindUserByEmail(User.Identity.Name);
             hour.UserId = user.Id;
             _dbContext.Hours.Update(hour);
             _dbContext.SaveChanges();

@@ -23,7 +23,7 @@ namespace Sportzall.Repositories.Implementations
 
         public User FindUserByEmail(string? email)
         {
-            throw new NotImplementedException();
+            return _dbContext.User.Include(u => u.AbonementsUser).Include(i => i.StrangeUserRecord).FirstOrDefault(u => u.Email == email);
         }
 
         public User FindUserById(int? id)
