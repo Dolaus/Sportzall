@@ -82,3 +82,41 @@
          </div>
     }
 }
+<h4>Силові показники</h4>
+<table class="table table-bordered table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>
+                Жим від грудей
+            </th>
+            <th>
+                Жим лежачи
+            </th>
+            <th>
+                Присід
+            </th>
+            <th>
+                Дата
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var obj in Model.StrangeUserRecord)
+        {
+            <tr>
+                <td>
+                    @obj.ChessPress
+                </td>
+                <td>
+                    @obj.BenchPress
+                </td>
+                <td>
+                    @obj.Squat
+                </td>
+                <td>
+                    @obj.DateTimeDateTime
+                </td>
+            </tr>
+
+        }
+    </tbody>

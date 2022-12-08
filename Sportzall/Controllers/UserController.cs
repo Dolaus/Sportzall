@@ -214,6 +214,9 @@ namespace Sportzall.Controllers
                 olduser.Name = user.Name;
                 olduser.PhoneNumber = user.PhoneNumber;
                 olduser.ShortInfo = user.ShortInfo;
+                olduser.ChessPress = user.ChessPress;
+                olduser.BenchPress = user.BenchPress;
+                olduser.Squat = user.Squat;
                 _dbContext.User.Update(olduser);
                 _dbContext.SaveChanges();
                 return RedirectToAction(nameof(AboutUser));
@@ -265,7 +268,7 @@ namespace Sportzall.Controllers
         [HttpGet]
         public IActionResult AboutUser()
         {
-            var user = _dbContext.User.Include(u=>u.AbonementsUser).FirstOrDefault(u => u.Email == User.Identity.Name);
+            var user = _dbContext.User.Include(u=>u.AbonementsUser).Include(i=>i.StrangeUserRecord).FirstOrDefault(u => u.Email == User.Identity.Name);
             if (user == null)
             {
                 return RedirectToAction("Login","Account");
