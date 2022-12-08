@@ -17,6 +17,9 @@ namespace Sportzall.Models
         public string? PhoneNumber { get; set; }
         public string? Image { get; set; }
 
+        public int? ChessPress { get; set; }
+        public int? BenchPress { get; set; }
+        public int? Squat { get; set; }
         public int? RoleId { get; set; }
         public Role? Role { get; set; }
         public virtual List<Week> Week { get; set; }

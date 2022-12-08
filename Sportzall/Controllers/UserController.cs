@@ -59,7 +59,9 @@ namespace Sportzall.Controllers
                 user.Image = model.Image;
                 user.PhoneNumber = model.PhoneNumber;
                 user.ShortInfo = model.ShortInfo;
-
+                user.BenchPress = model.BenchPress;
+                user.ChessPress = model.ChessPress;
+                user.Squat = model.Squat;
                 _dbContext.User.Add(user);
                 _dbContext.SaveChanges();
                 return RedirectToAction("Index");
@@ -148,7 +150,9 @@ namespace Sportzall.Controllers
                 user.Password=model.User.Password;
                 user.PhoneNumber = model.User.PhoneNumber;
                 user.ShortInfo = model.User.ShortInfo;
-
+                user.ChessPress = model.User.ChessPress;
+                user.BenchPress = model.User.BenchPress;
+                user.Squat = model.User.Squat;
                 _dbContext.User.Update(user);
                 _dbContext.SaveChanges();
                 return RedirectToAction("Index");

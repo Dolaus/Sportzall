@@ -18,6 +18,9 @@ namespace Sportzall.Models.ViewModel
         public string? Image { get; set; }
         public string? PhoneNumber { get; set; }
         public string? ShortInfo { get; set; }
+        public int? ChessPress { get; set; }
+        public int? BenchPress { get; set; }
+        public int? Squat { get; set; }
         public Role? Role { get; set; }
     }
 }
