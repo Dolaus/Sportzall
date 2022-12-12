@@ -5,17 +5,25 @@ namespace Sportzall.Repositories.Implementations
 {
     public class AbonementUserControllable : IAbonementUserControllable
     {
+        private readonly SportzalDBContext _dbContext;
+        public AbonementUserControllable(SportzalDBContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
+
         public void AddAbonementUser(AbonementsUser abonementsUser)
         {
-            throw new NotImplementedException();
+            _dbContext.Add(abonementsUser);
+            _dbContext.SaveChanges();
         }
 
         public void DeleteAbonementUser(AbonementsUser abonementsUser)
         {
-            throw new NotImplementedException();
+            _dbContext.Remove(abonementsUser);
+            _dbContext.SaveChanges();
         }
 
-        public void FindAbonementById(int id)
+        public AbonementsUser FindAbonementById(int id)
         {
             throw new NotImplementedException();
         }
