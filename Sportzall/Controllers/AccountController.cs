@@ -17,6 +17,7 @@ namespace WebApplication2.Controllers
         public AccountController(SportzalDBContext context)
         {
             _context = context;
+
         }
         [HttpGet]
         public IActionResult Register()

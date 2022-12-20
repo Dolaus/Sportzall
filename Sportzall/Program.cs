@@ -20,7 +20,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IUserControllable, UserControllable>();
-builder.Services.AddScoped<IAbonementUserControllable, IAbonementUserControllable>();
+builder.Services.AddScoped<IAbonementUserControllable, AbonementUserControllable>();
 builder.Services.AddScoped<ITrenerControllable, TrenerControllable>();
 var app = builder.Build();
 

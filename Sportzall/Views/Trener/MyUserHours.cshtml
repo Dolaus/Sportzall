@@ -14,7 +14,7 @@
     <h1>@Model.HoursId</h1>
     @if (Model.Treners.Count()>0)
     {
-        <table class="table table-bordered table-striped" style="width:100%">
+        <table class="table table-dark table-hover" style="width:100%">
             <thead>
                 <tr>
                     <th>
@@ -22,6 +22,9 @@
                     </th>
                     <th>
                         Role
+                    </th>
+                    <th>
+                        
                     </th>
                 </tr>
             </thead>
@@ -39,7 +42,7 @@
                         </td>
                         <td class="text-center">
                             <div class="w-75 btn-group" role="group">
-                                 <a asp-controller="Trener" asp-route-Id="@obj.Id" asp-route-HoursId="@Model.HoursId" asp-action="AddToTheTrenerAtHour" class=" btn btn-primary mx-2">
+                                 <a asp-controller="Trener" asp-route-Id="@obj.Id" asp-route-HoursId="@Model.HoursId" asp-action="AddToTheTrenerAtHour" class=" btn btn-warning mx-2">
                                     Add to The Hour
                                  </a>
                             </div>

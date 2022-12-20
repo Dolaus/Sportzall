@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Sportzall.Models;
@@ -20,12 +21,13 @@ namespace Sportzall.Controllers
             _userControllable = userControllable;
         }
 
+        [Authorize(Roles = "admin")]
         public IActionResult Index()
         {
             IEnumerable<User> users = _userControllable.GetAllUsers();
             return View(users);
         }
-
+        [Authorize(Roles = "admin")]
         [HttpGet]
         public IActionResult Create()
         {
@@ -85,7 +87,7 @@ namespace Sportzall.Controllers
             }
             return View(user);
         }
-
+        [Authorize(Roles = "admin")]
         [HttpGet]
         public IActionResult Edit(int? id)
         {
@@ -226,7 +228,7 @@ namespace Sportzall.Controllers
 
             return View(user);
         }
-
+        [Authorize(Roles = "admin")]
         [HttpGet]
         public IActionResult Delete(int? id)
         {
@@ -275,6 +277,7 @@ namespace Sportzall.Controllers
             }
             return View(user);
         }
+        [Authorize(Roles = "user")]
         [HttpGet]
         public IActionResult MyRecords()
         {
@@ -283,6 +286,7 @@ namespace Sportzall.Controllers
 
             return View(allYourrecord);
         }
+        [Authorize(Roles = "user")]
         [HttpGet]
         public IActionResult MyAbonements()
         {
@@ -290,6 +294,7 @@ namespace Sportzall.Controllers
            
             return View(user);
         }
+        [Authorize(Roles = "user")]
         [HttpGet]
         public IActionResult MyTreners()
         {
@@ -297,6 +302,7 @@ namespace Sportzall.Controllers
             var yourPersonalTrener = _dbContext.TrenersUser.Include(u => u.User).Where(u => u.UnicKey == user.Id);
             return View(yourPersonalTrener);
         }
+        [Authorize(Roles = "user")]
         [HttpGet]
         public IActionResult Bascket()
         {
@@ -307,6 +313,7 @@ namespace Sportzall.Controllers
             }
             return View(user);
         }
+        [Authorize(Roles = "user")]
         [HttpGet]
         public IActionResult Pay(int? id)
         {
@@ -324,11 +331,13 @@ namespace Sportzall.Controllers
             _dbContext.SaveChanges();
             return RedirectToAction("Bascket");
         }
+        [Authorize(Roles = "admin")]
         [HttpGet]
         public IActionResult AdminPanel()
         {
             return View();
         }
+        [Authorize(Roles = "trener")]
         [HttpGet]
         public IActionResult TrenerPanel()
         {
@@ -373,6 +382,7 @@ namespace Sportzall.Controllers
             };
             return View(selectHourOfDayAddMeToRozkladViewModel);
         }
+        
         [HttpGet]
         public IActionResult AddMeToTrenersRozklad(int id)
         {

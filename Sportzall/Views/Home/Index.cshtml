@@ -1,25 +1,14 @@
 ﻿@model IEnumerable<User>
+@*@model IEnumerable<User>
 @{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="container p-3">
-    <div class="row pt-4">
-        <div class="col-6">
-            <h2 class="text-primary">User List</h2>
-        </div>
-        <div class="col-6">
-            <a asp-controller="User" asp-action="Create" class=" btn btn-primary">
-            Create New User
-            </a>
-        </div>
-    </div>
-    <br /><br />
+
     <div class="row">
     @if (Model.Count()>0)
     {
-        
-
                 @foreach(var obj in Model)
                 {
                    <div class="col-lg-4 col-md-6 pb-4 filter @obj.Name.Replace(' ','_')">
@@ -48,4 +37,74 @@
         <p> No Users </p>
     }
     </div>
-</div>
+</div>*@
+ <body>
+<main class="main">
+    <section class="hero">
+        <div class=" overlay">
+            <div class="hero_content container">
+                <div class="hero_info">
+                    <span class="hero_span">This</span>
+                    <h1 class="hero_title">Sport<span class="logo-accent">hub<span></h1>
+
+                    <div class="hero_info">
+                        <ul class="info-list list">
+                            <li class="item">
+                                <h3 class="uptitle">MEET THE FITNESS PHENOMENON STRAIGHT FROM THE USA!</h3>
+                                <p class="text">During your first visit to our club, an analysis of your body composition will be carried out and consultation with a trainer who will help you adjust training to your expectations. Sign up for your first free training!</p>
+                                <button class="button button-header">Sign up</button>
+                            </li>
+                            <li class="item">
+                                <h3 class="uptitle"> SEE WHAT TRAINING IS ABOUT</h3>
+                                <p class="text">Get to know our training method and the results you will achieve thanks to it! </p>
+                                <button class="button button-header">See more</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+    </section>
+<br />
+        <br />
+    <section class="people">
+          
+
+        <h2 class="section-title">get to know us <span> These are our team </span></h2>
+            <div class="row">
+                @if (Model.Count() > 0)
+                {
+                    @foreach (var obj in Model)
+                    {
+                        <div class="col-lg-4 col-md-6 pb-4 filter @obj.Name.Replace(' ','_')">
+
+                            <div class="card bg-white rounded shadow-sm" style="border:1px solid #222">
+                                @if (obj.Image==null||obj.Image=="")
+                                {                              
+                                <div>
+                                        <img  src="@URL.ImageUserURL@URL.Scala" height=" 400px" width="100%" style="border-radius:5px; border:1px solid #bbb" />
+                                </div>
+                                }
+                                else{
+                                <div>
+                                        <img  src="@URL.ImageUserURL@obj.Image" height=" 400px" width="100%"   alt="Card image cap">
+                                </div>
+                                }
+                                <div class="card-body p-1 px-3 row">
+                                    <div class="col-7 text-dark"><h4 class="float-left">@obj.Name</h4></div>
+                                    <div class="col-12 p-1">
+                                        <a asp-controller="User" asp-action="Details" asp-route-id="@obj.Id" class="btn btn-dark form-control btn-sm p-2" style="height:40px">View Details</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                }
+                else
+                {
+                    <p> No Users </p>
+                }
+            </div>
+    </section>
+</main>
+</body>
