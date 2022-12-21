@@ -3,18 +3,21 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Тренери</h1>
 
 <div>
-    <h4>Your Treners</h4>
+    <h4>Тренери</h4>
     
     </hr>
     <table class="table table-dark table-hover" style="width:100%">
             <thead>
                 <tr>
                     <th>
-                       Treners Name
+                       Ім'я
                     </th>
+                <th>
+                    
+                </th>
                 </tr>
             </thead>
             <tbody>
@@ -25,18 +28,16 @@
                     <tr>
                         <td>
                                      <a  asp-controller="User"   asp-action="Details" asp-route-id="@obj.UserId" >                         
-                                @obj.User.Name
+                                        @obj.User.Name
                                         </a>
                           
 
                         </td>
+                      
                         <td>
-
-                        </td>
-                        <td>
-                           <div class="w-75 btn-group" role="group"> 
-                                <a  asp-controller="User"   asp-action="SelectDayAddMyToRozklad" asp-route-trenersid="@obj.UserId" >                         
-                                   Записатися
+                           <div class="w-75 btn-group" role="group">
+                                <a asp-controller="User" asp-action="SelectDayAddMyToRozklad" asp-route-trenersid="@obj.UserId" class=" btn btn-warning mx-2">
+                                    Записатися
                                 </a>
                             </div>
                         </td>

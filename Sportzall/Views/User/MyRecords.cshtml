@@ -3,10 +3,10 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Записи</h1>
 
 <div>
-    <h4>Your Records</h4>
+    <h4>Мої записи</h4>
     
     </hr>
      @* <div class="col-4">
@@ -17,8 +17,17 @@
             <thead>
                 <tr>
                     <th>
-                       You Records
+                       Мої записи
                     </th>
+                <th>
+                    
+                </th>
+                <th>
+                    
+                </th>
+                <th>
+                    
+                </th>
                 </tr>
             </thead>
             <tbody>
@@ -35,7 +44,9 @@
                             @obj.Week.User.Name
                         </td>     
                         <td>
-                                        <a  asp-action="DeleteMeTofromMyRecords" asp-route-id="@obj.Id" >Скасувати запис</a>
+                                <div class="w-75 btn-group" role="group">
+                                        <a  asp-action="DeleteMeTofromMyRecords" asp-route-id="@obj.Id " class=" btn btn-danger mx-2">Скасувати запис</a>
+                                </div>
                        </td>  
                     </tr>
                 }

@@ -23,45 +23,45 @@
     }
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
+            Ім'я
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(modelItem => modelItem.Name)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Year)
+            Рік народження
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(modelItem => modelItem.Year)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ShortInfo)
+            Коротка інформація
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(modelItem => modelItem.ShortInfo)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.PhoneNumber)
+            Номер телефону
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(modelItem => modelItem.PhoneNumber)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ChessPress)
+            Жим від грудей
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(modelItem => modelItem.ChessPress)
         </dd>
 
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.BenchPress)
+            Жим лежачи
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(modelItem => modelItem.BenchPress)
         </dd>
 
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Squat)
+            Присід
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(modelItem => modelItem.Squat)
@@ -78,14 +78,14 @@
     <br />
     @if (Model.RoleId == 2)
     {
-        <div class="w-75 btn-group" role="group">
-            <a asp-controller="User" asp-action="MyRecords" class=" btn btn-primary mx-2">
+        <div class="w-100 btn-group" role="group">
+            <a asp-controller="User" asp-action="MyRecords" class=" btn btn-warning mx-2">
                 Мої записи
             </a>
-            <a asp-controller="User" asp-action="MyAbonements" class="btn btn-primary mx-2">
+            <a asp-controller="User" asp-action="MyAbonements" class="btn btn-warning mx-2">
                 Мої абонементи
             </a>
-            <a asp-controller="User" asp-action="MyTreners" class="btn btn-primary mx-2">
+            <a asp-controller="User" asp-action="MyTreners" class="btn btn-warning mx-2">
                 Мої тренери
             </a>
         </div>

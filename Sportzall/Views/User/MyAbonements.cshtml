@@ -3,10 +3,10 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Абонементи</h1>
 
 <div>
-    <h4>Your Abonements</h4>
+    <h4>Мої абонементи</h4>
     
     </hr>
 
@@ -18,13 +18,16 @@
             <thead>
                 <tr>
                     <th>
-                        Abonements Name
+                        Назва абонементу
                     </th>
                     <th>
-                        Description
+                        Опис
                     </th>
                     <th>
-                        Price
+                        Ціна
+                    </th>
+                    <th>
+                        
                     </th>
                 </tr>
             </thead>
@@ -45,8 +48,8 @@
                         </td>
                         <td class="text-center">
                             <div class="w-75 btn-group" role="group">
-                                 <a asp-controller="Abonement" asp-route-Id="@obj.Id" asp-action="DeleteUserAbonement" class=" btn btn-primary mx-2">
-                                 Delete Abonement
+                                 <a asp-controller="Abonement" asp-route-Id="@obj.Id" asp-action="DeleteUserAbonement" class=" btn btn-warning mx-2">
+                                Видалити абонемент
                                  </a>
                                  
                             </div>
@@ -59,7 +62,7 @@
     }
     else
     {
-        <p>You dont have abonements</p>
+        <p>У вас немає абонементів</p>
     }
 
 

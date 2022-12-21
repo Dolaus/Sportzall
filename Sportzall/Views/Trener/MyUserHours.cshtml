@@ -2,26 +2,21 @@
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
-            <h2 class="text-primary">My Team</h2>
-        </div>
-        <div class="col-6">
-            <a asp-controller="User" asp-action="Create" class=" btn btn-primary">
-            Create New User
-            </a>
+            <h2 class="text-light">My Team</h2>
         </div>
     </div>
     <br /><br />
-    <h1>@Model.HoursId</h1>
+    
     @if (Model.Treners.Count()>0)
     {
         <table class="table table-dark table-hover" style="width:100%">
             <thead>
                 <tr>
                     <th>
-                        User Name
+                      Ім'я
                     </th>
                     <th>
-                        Role
+                       Роль
                     </th>
                     <th>
                         
@@ -43,7 +38,7 @@
                         <td class="text-center">
                             <div class="w-75 btn-group" role="group">
                                  <a asp-controller="Trener" asp-route-Id="@obj.Id" asp-route-HoursId="@Model.HoursId" asp-action="AddToTheTrenerAtHour" class=" btn btn-warning mx-2">
-                                    Add to The Hour
+                                    Додати
                                  </a>
                             </div>
                         </td>
@@ -54,6 +49,6 @@
     }
     else
     {
-        <p> No Users </p>
+        <p> Немає користувачів </p>
     }
 </div>

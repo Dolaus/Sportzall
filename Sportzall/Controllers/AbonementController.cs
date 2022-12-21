@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Sportzall.Models;
 using System.Collections.Generic;
+using System.Data;
 
 namespace Sportzall.Controllers
 {
@@ -73,7 +75,7 @@ namespace Sportzall.Controllers
 
             return RedirectToAction("Details", "User", new { id = userAbonement.UserId });
         }
-
+        [Authorize(Roles = "admin")]
         [HttpGet]
         public IActionResult Create()
         {

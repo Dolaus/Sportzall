@@ -1,8 +1,8 @@
 ﻿@model Sportzall.Models.StrangeUserRecord
 
-<h1>Create</h1>
+<h1>Додати</h1>
 
-<h4>User</h4>
+<h4>Силові показники</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -11,19 +11,19 @@
             <input asp-for="UserId" hidden />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="BenchPress" class="control-label"></label>
+                <label asp-for="BenchPress" class="control-label">Жим від грудей</label>
                 <input asp-for="BenchPress" class="form-control" />
                 <span asp-validation-for="BenchPress" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="ChessPress" class="control-label"></label>
+                <label asp-for="ChessPress" class="control-label">Жим лежачи</label>
                 <input asp-for="ChessPress" class="form-control" />
                 <span asp-validation-for="ChessPress" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="Squat" class="control-label"></label>
+                <label asp-for="Squat" class="control-label">Присід</label>
                 <input asp-for="Squat" class="form-control" />
                 <span asp-validation-for="Squat" class="text-danger"></span>
             </div>
@@ -36,5 +36,5 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Повернутися</a>
 </div>

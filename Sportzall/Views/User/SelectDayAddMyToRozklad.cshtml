@@ -2,13 +2,9 @@
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
-            <h2 class="text-primary">User List</h2>
+            <h2 class="text-light">Розклад тренера</h2>
         </div>
-        <div class="col-6">
-            <a asp-controller="Abonement" asp-action="Create" class=" btn btn-primary">
-            Create New Abonement
-            </a>
-        </div>
+
     </div>
     <br /><br />
 
@@ -18,10 +14,11 @@
             <thead>
                 <tr>
                     <th>
-                        Abonement Name
+                        Назва дня
                     </th>
+                 
                     <th>
-                        Role
+                        
                     </th>
                 </tr>
             </thead>
@@ -32,12 +29,10 @@
                         <td>
                             @obj.NameofDay
                         </td>
-                        <td>
-                            @obj.UserId
-                        </td>
+                       
                         <td class="text-center">
                             <div class="w-75 btn-group" role="group">
-                                 <a asp-controller="User" asp-route-trenersid="@obj.Id"  asp-action="SelectHourOfDayAddMeToRozklad" class=" btn btn-primary mx-2">
+                                 <a asp-controller="User" asp-route-trenersid="@obj.Id"  asp-action="SelectHourOfDayAddMeToRozklad" class=" btn btn-warning mx-2">
                                       Вибрати
                                  </a>
                                  

@@ -2,7 +2,7 @@
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
-            <h2 class="text-primary">Hours List</h2>
+            <h2 class="text-light">Список годин</h2>
         </div>
     </div>
     <br /><br />
@@ -13,16 +13,13 @@
             <thead>
                 <tr>
                     <th>
-                        Abonement Name
+                       Години
                     </th>
                     <th>
-                        IsBusy
+                        Зайнятість
                     </th>
                     <th>
-                        IsActive
-                    </th>
-                    <th>
-                        UserId
+                       Id користувача
                     </th>
                     <th>
 
@@ -55,9 +52,7 @@
 
                             }
                         </td>
-                         <td>
-                            @obj.IsActive
-                        </td>
+                        
                         @if (obj.UserId == null||obj.IsBusy==false)
                         {
                             <td>
@@ -66,7 +61,7 @@
                             <td class="text-center">
                                 <div class="w-75 btn-group" role="group">
                                     <a asp-controller="Trener" asp-route-Id="@obj.Id" asp-action="MyUserHours" class="btn btn-warning">
-                                 Add
+                                 Додати
                                  </a>
                                  
                             </div>
@@ -75,12 +70,14 @@
                         else if (obj.UserId != null || obj.IsBusy == true)
                         {
                              <td>
+                                 <a asp-controller="User" asp-route-Id="@obj.UserId" asp-action="Details" >
                                 @obj.UserId
+                                </a>
                             </td>
                             <td class="text-center">
                                 <div class="w-75 btn-group" role="group">
                                  <a asp-controller="Trener" asp-route-Id="@obj.Id"  asp-action="DeleteUserHours" class=" btn btn-danger ">
-                                  Delete
+                                 Видалити
                                  </a>
                                  
                             </div>
